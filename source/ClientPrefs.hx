@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.editors.spine.texture.FlixelTextureLoader;
 import flixel.FlxG;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
@@ -51,7 +52,8 @@ class ClientPrefs {
 		'instakill' => false,
 		'practice' => false,
 		'botplay' => false,
-		'opponentplay' => false
+		'opponentplay' => false,
+		'modchart' => true
 	];
 
 	public static var comboOffset:Array<Int> = [0, 0, 0, 0];
