@@ -1,6 +1,5 @@
 package;
 
-import flixel.addons.editors.spine.texture.FlixelTextureLoader;
 import flixel.FlxG;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
