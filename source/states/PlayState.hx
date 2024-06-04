@@ -59,6 +59,10 @@ import psychlua.HScript;
 import tea.SScript;
 #end
 
+import modcharting.ModchartFuncs;
+import modcharting.NoteMovement;
+import modcharting.PlayfieldRenderer;
+
 /**
  * This is where all the Gameplay stuff happens and is managed
  *
@@ -263,6 +267,8 @@ class PlayState extends MusicBeatState
 	// Callbacks for stages
 	public var startCallback:Void->Void = null;
 	public var endCallback:Void->Void = null;
+
+	var backupGpu:Bool;
 
 	override public function create()
 	{
@@ -507,7 +513,15 @@ class PlayState extends MusicBeatState
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
 
+		backupGpu = ClientPrefs.data.cacheOnGPU;
+		ClientPrefs.data.cacheOnGPU = false;
+
 		generateSong(SONG.song);
+
+		playfieldRenderer = new PlayfieldRenderer(strumLineNotes, notes, this);
+		playfieldRenderer.cameras = [camHUD];
+		add(playfieldRenderer);
+		add(grpNoteSplashes); 
 
 		noteGroup.add(grpNoteSplashes);
 
@@ -631,6 +645,7 @@ class PlayState extends MusicBeatState
 		resetRPC();
 
 		callOnScripts('onCreatePost');
+		ModchartFuncs.loadLuaFunctions();
 
 		cacheCountdown();
 		cachePopUpScore();
@@ -953,6 +968,7 @@ class PlayState extends MusicBeatState
 
 			generateStaticArrows(0);
 			generateStaticArrows(1);
+			NoteMovement.getDefaultStrumPos(this);
 			for (i in 0...playerStrums.length) {
 				setOnScripts('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnScripts('defaultPlayerStrumY' + i, playerStrums.members[i].y);
@@ -3015,6 +3031,8 @@ class PlayState extends MusicBeatState
 	}
 
 	override function destroy() {
+		ClientPrefs.data.cacheOnGPU = backupGpu;
+
 		#if LUA_ALLOWED
 		for (lua in luaArray)
 		{

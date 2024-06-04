@@ -80,39 +80,32 @@ class HScript extends SScript
 	}
 
 	var varsToBring:Any = null;
-	override function preset() {
-		super.preset();
-
-		// Some very commonly used classes
-		set('FlxG', flixel.FlxG);
-		set('FlxMath', flixel.math.FlxMath);
-		set('FlxSprite', flixel.FlxSprite);
-		set('FlxCamera', flixel.FlxCamera);
-		set('PsychCamera', backend.PsychCamera);
-		set('FlxTimer', flixel.util.FlxTimer);
-		set('FlxTween', flixel.tweens.FlxTween);
-		set('FlxEase', flixel.tweens.FlxEase);
-		set('FlxColor', CustomFlxColor);
-		set('Countdown', backend.BaseStage.Countdown);
-		set('PlayState', PlayState);
-		set('Paths', Paths);
-		set('Conductor', Conductor);
-		set('ClientPrefs', ClientPrefs);
-		#if ACHIEVEMENTS_ALLOWED
-		set('Achievements', Achievements);
-		#end
-		set('Character', Character);
-		set('Alphabet', Alphabet);
-		set('Note', objects.Note);
-		set('CustomSubstate', CustomSubstate);
-		#if (!flash && sys)
-		set('FlxRuntimeShader', flixel.addons.display.FlxRuntimeShader);
-		#end
-		set('ShaderFilter', openfl.filters.ShaderFilter);
-		set('StringTools', StringTools);
-		#if flxanimate
-		set('FlxAnimate', FlxAnimate);
-		#end
+	override function preset()
+		{
+			set('Math', Math);
+			setClass(modcharting.ModchartEditorState);
+			setClass(modcharting.ModchartEvent);
+			setClass(modcharting.ModchartEventManager);
+			setClass(modcharting.ModchartFile);
+			setClass(modcharting.ModchartFuncs);
+			setClass(modcharting.ModchartMusicBeatState);
+			setClass(modcharting.ModchartUtil);
+			setClass(modcharting.Modifier); //the game crashes without this???????? what??????????? -- fue glow
+			setClass(modcharting.Modifier.ModifierSubValue);
+			setClass(modcharting.ModTable);
+			setClass(modcharting.NoteMovement);
+			setClass(modcharting.NotePositionData);
+			setClass(modcharting.Playfield);
+			setClass(modcharting.PlayfieldRenderer);
+			setClass(modcharting.SimpleQuaternion);
+			setClass(modcharting.SustainStrip);
+			modcharting.ModchartFuncs.loadHScriptFunctions(this);
+		//Function initMod -- Init's the mods functions for Hscript (found in psychlua)
+		//Place this function anywhere in the HScript class!
+		public function initMod(mod:modcharting.Modifier)
+		{
+			call("initMod", [mod]);
+		}
 
 		// Functions & Variables
 		set('setVar', function(name:String, value:Dynamic) {
