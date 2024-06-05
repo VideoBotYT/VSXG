@@ -11,6 +11,8 @@ import psychlua.FunkinLua;
 
 #if HSCRIPT_ALLOWED
 import tea.SScript;
+
+import modcharting.Modifier;
 class HScript extends SScript
 {
 	public var modFolder:String;
@@ -369,7 +371,7 @@ class HScript extends SScript
 			return null;
 		});
 
-	public function initMod(mod:modcharting.Modifier)
+	public function initMod(mod:Modifier)
 			{
 				call("initMod", [mod]);
 			}
