@@ -82,6 +82,9 @@ class HScript extends SScript
 	var varsToBring:Any = null;
 	override function preset()
 		{
+			super.preset();
+
+
 			set('Math', Math);
 			setClass(modcharting.ModchartEditorState);
 			setClass(modcharting.ModchartEvent);
@@ -102,10 +105,6 @@ class HScript extends SScript
 			modcharting.ModchartFuncs.loadHScriptFunctions(this);
 		//Function initMod -- Init's the mods functions for Hscript (found in psychlua)
 		//Place this function anywhere in the HScript class!
-		public function initMod(mod:modcharting.Modifier)
-		{
-			call("initMod", [mod]);
-		}
 
 		// Functions & Variables
 		set('setVar', function(name:String, value:Dynamic) {
@@ -369,7 +368,11 @@ class HScript extends SScript
 			#end
 			return null;
 		});
-		
+
+	public function initMod(mod:modcharting.Modifier)
+			{
+				call("initMod", [mod]);
+			}
 		funk.addLocalCallback("runHaxeFunction", function(funcToRun:String, ?funcArgs:Array<Dynamic> = null) {
 			#if SScript
 			var callValue = funk.hscript.executeFunction(funcToRun, funcArgs);

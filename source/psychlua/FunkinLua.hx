@@ -53,8 +53,6 @@ class FunkinLua {
 	public var closed:Bool = false;
 
 	public static var instance:FunkinLua = null;
-    #if desktop DiscordClient.addLuaCallbacks(this); #end
-    ModchartFuncs.loadLuaFunctions(this);
 
 	#if HSCRIPT_ALLOWED
 	public var hscript:HScript = null;
@@ -1515,6 +1513,9 @@ class FunkinLua {
 		CustomSubstate.implement(this);
 		ShaderFunctions.implement(this);
 		DeprecatedFunctions.implement(this);
+
+		#if desktop DiscordClient.addLuaCallbacks(this); #end
+		ModchartFuncs.loadLuaFunctions(this);
 
 		try{
 			var isString:Bool = !FileSystem.exists(scriptName);
