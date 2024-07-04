@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.display.FlxStarField.FlxStarField2D;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -21,20 +22,26 @@ import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 
+import categories.CategorySelect;
+import PlayMenu;
+import Alphabet;
+
 using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
 	public static var psychEngineVersion:String = '0.6.2'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
+	public static var play:Alphabet;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<String> = [
-		'story_mode',
-		'freeplay',
+		//'story_mode',
+		//'freeplay',
+		'play',
 		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
@@ -231,10 +238,8 @@ class MainMenuState extends MusicBeatState
 
 								switch (daChoice)
 								{
-									case 'story_mode':
-										MusicBeatState.switchState(new StoryMenuState());
-									case 'freeplay':
-										MusicBeatState.switchState(new FreeplayState());
+									case 'play':
+										MusicBeatState.switchState(new PlayMenu());
 									#if MODS_ALLOWED
 									case 'mods':
 										MusicBeatState.switchState(new ModsMenuState());
@@ -251,6 +256,7 @@ class MainMenuState extends MusicBeatState
 					});
 				}
 			}
+
 			#if desktop
 			else if (FlxG.keys.anyJustPressed(debugKeys))
 			{
