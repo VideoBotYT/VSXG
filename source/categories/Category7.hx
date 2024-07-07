@@ -15,23 +15,13 @@ import flixel.util.FlxColor;
 import lime.utils.Assets;
 import Alphabet;
 
-import categories.Category1;
-import categories.Category2;
-import categories.Category3;
-import categories.Category4;
-import categories.Category5;
-import categories.Category6;
 
-
-class CategorySelect extends MusicBeatState
+class Category7 extends MusicBeatState
 {
     public static var category1:Alphabet;
     public static var category2:Alphabet;
     public static var category3:Alphabet;
     public static var category4:Alphabet;
-    public static var category5:Alphabet;
-    public static var category6:Alphabet;
-    public static var category7:Alphabet;
     var bg:FlxSprite;
    
     override function create()
@@ -56,7 +46,7 @@ class CategorySelect extends MusicBeatState
         category2.antialiasing = false;
         category2.screenCenter(X);
         add(category2);
-        
+
         category3 = new Alphabet(35, 250, "3");
         category3.antialiasing = false;
         category3.screenCenter(X);
@@ -67,21 +57,6 @@ class CategorySelect extends MusicBeatState
         category4.screenCenter(X);
         add(category4);
 
-        category5 = new Alphabet(35, 450, "5");
-        category5.antialiasing = false;
-        category5.screenCenter(X);
-        add(category5);
-
-        category6 = new Alphabet(35, 550, "6");
-        category6.antialiasing = false;
-        category6.screenCenter(X);
-        add(category6);
-       
-        category7 = new Alphabet(35, 650, "7");
-        category7.antialiasing = false;
-        category7.screenCenter(X);
-        add(category7);
-
         super.create();
     }
 
@@ -91,55 +66,61 @@ class CategorySelect extends MusicBeatState
  
         if (controls.BACK)
         {
-            FlxG.switchState(new PlayMenu());
+            FlxG.switchState(new CategorySelect());
         }
 
         if (FlxG.mouse.justPressed && category1.overlapsPoint(FlxG.mouse.getScreenPosition())) {
-            runCategory('1');
+            runSong('1');
         }
         if (FlxG.mouse.justPressed && category2.overlapsPoint(FlxG.mouse.getScreenPosition())) {
-            runCategory('2');
+            runSong('2');
         }
         if (FlxG.mouse.justPressed && category3.overlapsPoint(FlxG.mouse.getScreenPosition())) {
-            runCategory('3');
+            runSong('3');
         }
         if (FlxG.mouse.justPressed && category4.overlapsPoint(FlxG.mouse.getScreenPosition())) {
-            runCategory('4');
-        }
-        
-        if (FlxG.mouse.justPressed && category5.overlapsPoint(FlxG.mouse.getScreenPosition())) {
-            runCategory('5');
-        }
-
-        if (FlxG.mouse.justPressed && category6.overlapsPoint(FlxG.mouse.getScreenPosition())) {
-            runCategory('6');
-        }
-       
-        if (FlxG.mouse.justPressed && category7.overlapsPoint(FlxG.mouse.getScreenPosition())) {
-            runCategory('7');
+            runSong('4');
         }
 
         super.update(elapsed);
     }
 
-    private function runCategory(category:String)
+    private function runSong(song:String)
     {
-        switch(category)
+        switch(song)
         {
             case '1':
-                FlxG.switchState(new Category1());
+				PlayState.SONG = Song.loadFromJson('senpai-hard', 'senpai');
+				PlayState.isStoryMode = false;
+				PlayState.storyDifficulty = 2;
+				PlayState.storyWeek = 1;
+				FlxG.camera.fade(FlxColor.WHITE, 0.5, false);
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				LoadingState.loadAndSwitchState(new PlayState());
             case '2':
-                FlxG.switchState(new Category2());
+				PlayState.SONG = Song.loadFromJson('roses-hard', 'roses');
+				PlayState.isStoryMode = false;
+				PlayState.storyDifficulty = 2;
+				PlayState.storyWeek = 1;
+				FlxG.camera.fade(FlxColor.WHITE, 0.5, false);
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				LoadingState.loadAndSwitchState(new PlayState());
             case '3':
-                FlxG.switchState(new Category3());
+				PlayState.SONG = Song.loadFromJson('thorns-hard', 'thorns');
+				PlayState.isStoryMode = false;
+				PlayState.storyDifficulty = 2;
+				PlayState.storyWeek = 1;
+				FlxG.camera.fade(FlxColor.WHITE, 0.5, false);
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				LoadingState.loadAndSwitchState(new PlayState());
             case '4':
-                FlxG.switchState(new Category4());
-            case '5':
-                FlxG.switchState(new Category5());
-            case '6':
-                FlxG.switchState(new Category6());
-            case '7':
-                FlxG.switchState(new Category7());
+				PlayState.SONG = Song.loadFromJson('thornsmt-hard', 'thornsmt');
+				PlayState.isStoryMode = false;
+				PlayState.storyDifficulty = 2;
+				PlayState.storyWeek = 1;
+				FlxG.camera.fade(FlxColor.WHITE, 0.5, false);
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				LoadingState.loadAndSwitchState(new PlayState());
         }
     }
 }
