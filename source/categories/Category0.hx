@@ -16,11 +16,12 @@ import lime.utils.Assets;
 import categories.CategorySelect;
 import Alphabet;
 
-class Category1 extends MusicBeatState 
+class Category0 extends MusicBeatState 
 {
 	public static var category1:Alphabet;
 	public static var category2:Alphabet;
 	public static var category3:Alphabet;
+	public static var category4:Alphabet;
 
 	var bg:FlxSprite;
 
@@ -41,16 +42,6 @@ class Category1 extends MusicBeatState
 		category1.antialiasing = false;
 		category1.screenCenter(X);
 		add(category1);
-		
-        category2 = new Alphabet(35, 150, "2");
-		category2.antialiasing = false;
-		category2.screenCenter(X);
-		add(category2);
-		
-        category3 = new Alphabet(35, 250, "3");
-		category3.antialiasing = false;
-		category3.screenCenter(X);
-		add(category3);
 
 		super.create();
 	}
@@ -68,14 +59,6 @@ class Category1 extends MusicBeatState
 		{
 			runSong('1');
 		}
-		if (FlxG.mouse.justPressed && category2.overlapsPoint(FlxG.mouse.getScreenPosition()))
-		{
-			runSong('2');
-		}
-		if (FlxG.mouse.justPressed && category3.overlapsPoint(FlxG.mouse.getScreenPosition()))
-		{
-			runSong('3');
-		}
 
 		super.update(elapsed);
 	}
@@ -85,23 +68,7 @@ class Category1 extends MusicBeatState
 		switch (song)
 		{
 			case '1':
-				PlayState.SONG = Song.loadFromJson('bopeebo-hard', 'bopeebo');
-				PlayState.isStoryMode = false;
-				PlayState.storyDifficulty = 2;
-				PlayState.storyWeek = 1;
-				FlxG.camera.fade(FlxColor.WHITE, 0.5, false);
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-				LoadingState.loadAndSwitchState(new PlayState());
-			case '2':
-				PlayState.SONG = Song.loadFromJson('fresh-hard', 'fresh');
-				PlayState.isStoryMode = false;
-				PlayState.storyDifficulty = 2;
-				PlayState.storyWeek = 1;
-				FlxG.camera.fade(FlxColor.WHITE, 0.5, false);
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-				LoadingState.loadAndSwitchState(new PlayState());
-			case '3':
-				PlayState.SONG = Song.loadFromJson('dad battle-hard', 'dad battle');
+				PlayState.SONG = Song.loadFromJson('tutorial-hard', 'tutorial');
 				PlayState.isStoryMode = false;
 				PlayState.storyDifficulty = 2;
 				PlayState.storyWeek = 1;
